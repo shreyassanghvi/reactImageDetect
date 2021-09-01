@@ -1,3 +1,6 @@
+# About the project
+The Project is a React app that accepts user input of image url and detects face in the image. This is the final project for ZTM course on complete web developement.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
