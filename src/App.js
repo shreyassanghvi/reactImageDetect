@@ -22,7 +22,8 @@ class App extends Component {
             input: "",
             imageURL: "",
             box: {},
-            route: 'signin'
+            route: 'signin',
+            isSignedIn: false,
         }
     }
 
@@ -49,12 +50,15 @@ class App extends Component {
     }
     onSubmit = () => {
         this.setState({imageURL: this.state.input})
-        console.log(this.state.imageURL)
-
         app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then((response) => this.displayFace(this.calculateFace(response))).catch(err => console.log(err))
 
     }
     onRouteChange = (route) => {
+        if (route === 'signout')
+            this.setState({isSignedIn: false});
+        else if (route === 'home') {
+            this.setState({isSignedIn: true});
+        }
         this.setState({route: route})
     }
 
@@ -77,9 +81,8 @@ class App extends Component {
                            params={particlesOption}
                 />
                 <div className={"App"}>
-                    <Navigation onRouteChange={this.onRouteChange}/>
+                    <Navigation onRouteChange={this.onRouteChange} isSignedIn={this.state.isSignedIn}/>
                     {this.state.route === 'home' ?
-
                         <div>
                             <Logo/>
                             <Rank/>
